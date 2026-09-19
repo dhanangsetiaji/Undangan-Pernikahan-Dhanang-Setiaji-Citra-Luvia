@@ -78,8 +78,12 @@
         <div class="text-center p-6 glass-panel rounded-2xl mx-4 max-w-sm w-full" data-aos="zoom-in" data-aos-duration="1500">
             <p class="text-sm tracking-widest uppercase mb-2 text-gold font-semibold">The Wedding Of</p>
             <h1 class="font-script text-5xl md:text-6xl text-gold mb-4">Dhanang & Citra</h1>
-            <p class="mb-8 font-serif italic text-botanical">29 September 2026</p>
-            <p class="text-xs mb-4 text-gray-700">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <p class="mb-6 font-serif italic text-botanical">29 September 2026</p>
+            
+            <!-- Tempat Nama Tamu -->
+            <p class="text-xs text-gray-700">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <h3 id="nama-tamu" class="text-lg font-semibold text-botanical mb-6 capitalize">Tamu Undangan</h3>
+            
             <button onclick="openInvitation()" class="bg-gold hover:bg-yellow-600 text-white px-8 py-3 rounded-full uppercase tracking-widest text-xs font-semibold transition-all duration-300 shadow-lg shadow-gold/30">
                 Buka Undangan
             </button>
@@ -216,7 +220,7 @@
             <form class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
-                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-botanical focus:border-transparent outline-none" placeholder="Masukkan nama Anda" required>
+                    <input type="text" id="input-nama" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-botanical focus:border-transparent outline-none" placeholder="Masukkan nama Anda" required>
                 </div>
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Kehadiran</label>
@@ -258,6 +262,19 @@
         AOS.init({
             once: true,
             offset: 50,
+        });
+
+        // Function untuk Mengambil Parameter ?to= dari URL
+        window.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestName = urlParams.get('to');
+            
+            if (guestName) {
+                // Tampilkan nama di Cover
+                document.getElementById('nama-tamu').innerText = guestName;
+                // Isi otomatis di form RSVP (Opsional)
+                document.getElementById('input-nama').value = guestName;
+            }
         });
 
         // Open Invitation Logic
